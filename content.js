@@ -7,7 +7,6 @@ chrome.runtime.onMessage.addListener(
       var songArtist = $("#main > div > div.nowPlayingBar-container > footer > div > div.now-playing-bar__left > div > div > div.track-info__artists > span > span > a").text()
       alert(songName)
       alert(songArtist)
-      chrome.runtime.sendMessage({"message": "open_new_tab", "url": songName});
     }
   }
 );
