@@ -6,18 +6,18 @@
       "matches": [
         "https://open.spotify.com/*"
       ],
-      "js": ["jquery-3.2.1.min.js", "popup.js"]
+      "js": ["jquery-3.2.1.min.js", "content.js"]
     }
   ],
   "browser_action": {
     "default_icon": "icon.png",
-    "default_popup": "popup.html"
-  },
-  "background": {
-    "scripts": ["background.js"],
-    "persistent": false
+    "default_popup": "index.html"
   },
   "permissions":[
     "activeTab"
-  ]
+  ],
+  "background":{
+    "persistent": false,
+    "scripts": ["popup.js"]
+  }
 }
