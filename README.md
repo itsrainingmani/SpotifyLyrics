@@ -1,2 +1,2 @@
 # SpotifyLyrics
-Chrome Extension that displays lyrics for Spotify web player
+Tool that displays the lyrics of the currently playing song on Spotify
