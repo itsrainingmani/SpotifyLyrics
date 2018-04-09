@@ -1,23 +1,23 @@
 import sys
 import pprint
+import json
 import spotipy
 import spotipy.util as util
 
-SPOTIPY_CLIENT_ID='e38d35f21af14fc890865b3490ebf9b7'
-SPOTIPY_CLIENT_SECRET='6ee628feba734425a81ed26b34897133'
-SPOTIPY_REDIRECT_URI='http://localhost:8080'
+params = json.load(open('client_secrets.json'))
 scope = 'user-read-currently-playing'
 
-if len(sys.argv) > 1:
-    username = sys.argv[1]
-else:
-    print("Usage: %s username" % (sys.argv[0],))
-    sys.exit()
+# if len(sys.argv) > 1:
+#     username = sys.argv[1]
+# else:
+#     print("Usage: %s username" % (sys.argv[0],))
+#     sys.exit()
 
-token = util.prompt_for_user_token(username, scope, 
-                        client_id=SPOTIPY_CLIENT_ID,
-                        client_secret=SPOTIPY_CLIENT_SECRET,
-                        redirect_uri=SPOTIPY_REDIRECT_URI)
+token = util.prompt_for_user_token(params['username'], scope, 
+                        client_id=params['client_id'],
+                        client_secret=params['client_secret'],
+                        redirect_uri=params['redirect_uri']
+                        )
 
 # print(spotipy.VERSION)
 

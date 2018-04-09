@@ -1,2 +1,4 @@
-client_secrets.py
+client_secrets.json
 .cache-*
+
+.vscode/
