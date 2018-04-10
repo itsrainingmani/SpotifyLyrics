@@ -23,9 +23,9 @@ def main():
             current_progress = results['progress_ms']
             total_duration = results['item']['duration_ms']
             progress = round((current_progress/total_duration) * 100, 2)
-            print("\r{} - {}%".format(results['item']['name'], progress), end='')
+            print("\r{} - {}%".ljust(50,' ').format(results['item']['name'], progress), end='')
         except TypeError:
-            print("\rNo Track is playing")
+            print("\rNo Track is playing", end='')
     else:
         print("Can't get token")
 
