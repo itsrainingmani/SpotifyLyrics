@@ -1,4 +1,4 @@
-import sys
+import sys, os
 import pprint
 import json
 import spotipy
@@ -14,26 +14,29 @@ def load_params_and_get_token():
                         )
     return auth_token
 
-
-# if len(sys.argv) > 1:
-#     username = sys.argv[1]
-# else:
-#     print("Usage: %s username" % (sys.argv[0],))
-#     sys.exit()
-
-# print(spotipy.VERSION)
-
-token = load_params_and_get_token()
-
-for:
+def main():
+    token = load_params_and_get_token()
     if token:
         sp = spotipy.Spotify(auth=token)
-        results = sp.current_user_playing_track()
-        progress = results['progress_ms']
-        duration = results['item']['duration_ms']
-        print("Progress seconds - ", progress/1000)
-        print("Duration seconds - ", duration/1000)
-        pprint.pprint(results['item']['name'])
+        try:
+            results = sp.current_user_playing_track()
+            progress = results['progress_ms']
+            duration = results['item']['duration_ms']
+            print("Progress seconds - ", progress/1000)
+            print("Duration seconds - ", duration/1000)
+            print(results['item']['name'])
+        except TypeError:
+            print("No Track is playing")
     else:
         print("Can't get token")
-        sys.exit()
+
+if __name__ == "__main__":
+    while True:
+        try:
+            main()
+        except KeyboardInterrupt:
+            print('Shutting Down')
+            try:
+                sys.exit(0)
+            except SystemExit:
+                os._exit(0)
