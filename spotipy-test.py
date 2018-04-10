@@ -20,13 +20,12 @@ def main():
         sp = spotipy.Spotify(auth=token)
         try:
             results = sp.current_user_playing_track()
-            progress = results['progress_ms']
-            duration = results['item']['duration_ms']
-            print("Progress seconds - ", progress/1000)
-            print("Duration seconds - ", duration/1000)
-            print(results['item']['name'])
+            current_progress = results['progress_ms']
+            total_duration = results['item']['duration_ms']
+            progress = round((current_progress/total_duration) * 100, 2)
+            print("\r{} - {}/{}".format(results['item']['name'], progress, 100), end='')
         except TypeError:
-            print("No Track is playing")
+            print("\rNo Track is playing")
     else:
         print("Can't get token")
 
@@ -35,7 +34,7 @@ if __name__ == "__main__":
         try:
             main()
         except KeyboardInterrupt:
-            print('Shutting Down')
+            print('\b\b  \n\rShutting Down')
             try:
                 sys.exit(0)
             except SystemExit:
