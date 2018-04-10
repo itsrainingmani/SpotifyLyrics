@@ -1,12 +1,21 @@
+import re
 from bs4 import BeautifulSoup
 
 html_doc = open('Metallica-One.html')
 soup = BeautifulSoup(html_doc, 'html.parser')
 
 mydivs = soup.find("div", {"class": "ringtone"})
-print(mydivs.find_next_siblings("div"))
-# for div in soup.find_all('div'):
-#     if "class" in div.attrs.keys():
-#         # print(div['class'])
-#         if "ringtone" in div['class']:
-#             print(div)
+lyrics = mydivs.find_next_sibling("div")
+# regex = re.compile(r"")
+count = 0
+
+
+for line in lyrics:
+    count += 1
+    try:
+        if "<br/>" not in line.string:
+            print(count, line.string)
+    except TypeError:
+        pass
+    
+print(type(lyrics))
