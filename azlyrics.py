@@ -10,7 +10,7 @@ def clean_lyrics(lyrics):
     return lyric_list
 
 def clean_names(artist_name, song_name):
-    artist_name = re.sub(r"[^a-zA-Z0-9_]", '', artist_name.lower().replace(' ', ''))
+    artist_name = re.sub(r"[^a-zA-Z0-9_]", '', artist_name.lower().replace(' ', '').lstrip('the'))
     song_name = re.sub(r"[^a-zA-Z0-9_]", '', song_name.lower().replace(' ', ''))
 
     return artist_name, song_name
@@ -19,6 +19,8 @@ def extract_lyrics(artist, song):
     artist_name, song_name = clean_names(artist, song)
     url = create_url(artist_name, song_name)
     page = get_page(url)
+    if page == "Lyrics not found":
+        return [page]
     soup = BeautifulSoup(page, 'html.parser')
     mydivs = soup.find("div", {"class": "ringtone"})
     lyrics = mydivs.find_next_sibling("div")
@@ -42,8 +44,9 @@ def get_page(url):
         return page.read()
     except urllib.error.HTTPError as e:
         if e.code == 404:
-            print("Music not found")
-            sys.exit(1)
+            # print("Music not found")
+            return "Lyrics not found"
+            # sys.exit(1)
 
 if __name__ == "__main__":
     # a_name, s_name = clean_names("Metallica", "...And Justice For All")
