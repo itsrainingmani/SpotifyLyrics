@@ -26,7 +26,7 @@ def clean_names(artist_name, song_name):
 
 def extract_lyrics(artist, song):
     artist_name, song_name = clean_names(artist, song)
-    print(artist_name, song_name)
+    # print(artist_name, song_name)
     url = create_url(artist_name, song_name)
     page = get_page(url)
     if page == "Lyrics not found":
