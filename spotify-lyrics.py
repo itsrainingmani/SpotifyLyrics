@@ -15,35 +15,37 @@ def load_params_and_get_token():
                         )
     return auth_token
 
-def main():
+def main(curr_tr):
     token = load_params_and_get_token()
     if token:
         sp = spotipy.Spotify(auth=token)
-        curr_track = ""
         try:
             results = sp.current_user_playing_track()
             artist_name = results['item']['album']['artists'][0]['name']
             song_name = results['item']['name']
-            if song_name != curr_track:
-                curr_track = song_name
+            current_progress = results['progress_ms']
+            total_duration = results['item']['duration_ms']
+            progress = round((current_progress/total_duration) * 100, 2)
+            if song_name != curr_tr:
                 lyrics = az.extract_lyrics(artist_name, song_name)
-                full_lyrics = lyrics.join('\n')
-                print(full_lyrics, end='')
+                full_lyrics = '\n'.join(lyrics)
+                print("\r{} by {}\n\n".format(song_name, artist_name), end='')
+                print(full_lyrics + '\n')
+                print("\rProgress - {}%".ljust(20,' ').format(progress), end='')
+                return song_name
             else:
-                pass
-            # current_progress = results['progress_ms']
-            # total_duration = results['item']['duration_ms']
-            # progress = round((current_progress/total_duration) * 100, 2)
-            # print("\r{} by {} - {}%".ljust(50,' ').format(song_name, artist_name, progress), end='')
+                print("\rProgress - {}%".format(progress), end='')
+                return song_name
         except TypeError:
             print("\rNo Track is playing", end='')
     else:
         print("Can't get token")
 
 if __name__ == "__main__":
+    curr_track = ""
     while True:
         try:
-            main()
+            curr_track = main(curr_track)
         except KeyboardInterrupt:
             print('\b\b  \n\rShutting Down')
             try:
