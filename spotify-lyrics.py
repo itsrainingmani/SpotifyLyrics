@@ -1,5 +1,6 @@
 import sys, os
 import json
+import time
 import pprint
 import azlyrics as az
 import spotipy
@@ -50,6 +51,7 @@ if __name__ == "__main__":
     while True:
         try:
             curr_track = main(curr_track)
+            time.sleep(3)
         except KeyboardInterrupt:
             print('\b\b  \n\rShutting Down')
             try:
