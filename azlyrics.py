@@ -9,7 +9,16 @@ def clean_lyrics(lyrics):
 
     return lyric_list
 
-def extract_lyrics(page):
+def clean_names(artist_name, song_name):
+    artist_name = re.sub(r"[^a-zA-Z0-9_]", '', artist_name.lower().replace(' ', ''))
+    song_name = re.sub(r"[^a-zA-Z0-9_]", '', song_name.lower().replace(' ', ''))
+
+    return artist_name, song_name
+
+def extract_lyrics(artist, song):
+    artist_name, song_name = clean_names(artist, song)
+    url = create_url(artist_name, song_name)
+    page = get_page(url)
     soup = BeautifulSoup(page, 'html.parser')
     mydivs = soup.find("div", {"class": "ringtone"})
     lyrics = mydivs.find_next_sibling("div")
@@ -21,6 +30,7 @@ def extract_lyrics(page):
         except TypeError:
             pass
 
+    lyric_list = clean_lyrics(lyric_list)
     return lyric_list
 
 def create_url(artist_name, song_name):
@@ -36,14 +46,11 @@ def get_page(url):
             sys.exit(1)
 
 if __name__ == "__main__":
-    # html_doc = open('./lyrics_test/Metallica-Blackened.html')
-
-    # for line in extract(soup):
-    #     print(line + '\n')
-    a_name = "metallica"
-    s_name = "andjusticeforall"
-    url = create_url(a_name, s_name)
-    pg = get_page(url)
-    # print(pg)
-    lyr = extract_lyrics(pg)
-    clean_lyr = clean_lyrics(lyr)
+    # a_name, s_name = clean_names("Metallica", "...And Justice For All")
+    # # print(a_name, s_name)
+    # url = create_url(a_name, s_name)
+    # pg = get_page(url)
+    # lyr = extract_lyrics(pg)
+    # clean_lyr = clean_lyrics(lyr)
+    # print(clean_lyr)
+    pass
