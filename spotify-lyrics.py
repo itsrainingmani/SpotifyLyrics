@@ -32,7 +32,7 @@ def main(curr_tr):
             if song_name != curr_tr:
                 lyrics = az.extract_lyrics(artist_name, song_name)
                 # full_lyrics = '\n'.join(lyrics)
-                print(Fore.RED + "\r{} by {}\n\n".format(song_name, artist_name), end='')
+                print(Fore.RED + "\r{} by {}\n\n".ljust(10, ' ').format(song_name, artist_name), end='')
                 # print(full_lyrics + '\n')
                 az.pretty_print_lyrics(lyrics)
                 print(Fore.GREEN + "\rProgress - {}%".ljust(20,' ').format(progress), end='')
@@ -51,7 +51,7 @@ if __name__ == "__main__":
     while True:
         try:
             curr_track = main(curr_track)
-            time.sleep(3)
+            time.sleep(10)
         except KeyboardInterrupt:
             print('\b\b  \n\rShutting Down')
             try:
