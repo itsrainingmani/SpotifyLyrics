@@ -5,6 +5,8 @@ import azlyrics as az
 import spotipy
 import spotipy.util as util
 
+from colorama import init, Fore
+
 def load_params_and_get_token():
     params = json.load(open('client_secrets.json'))
     scope = 'user-read-currently-playing'
@@ -29,20 +31,21 @@ def main(curr_tr):
             if song_name != curr_tr:
                 lyrics = az.extract_lyrics(artist_name, song_name)
                 # full_lyrics = '\n'.join(lyrics)
-                print("\r{} by {}\n\n".format(song_name, artist_name), end='')
+                print(Fore.RED + "\r{} by {}\n\n".format(song_name, artist_name), end='')
                 # print(full_lyrics + '\n')
                 az.pretty_print_lyrics(lyrics)
-                print("\rProgress - {}%".ljust(20,' ').format(progress), end='')
+                print(Fore.GREEN + "\rProgress - {}%".ljust(20,' ').format(progress), end='')
                 return song_name
             else:
-                print("\rProgress - {}%".ljust(20, ' ').format(progress), end='')
+                print(Fore.GREEN + "\rProgress - {}%".ljust(20, ' ').format(progress), end='')
                 return song_name
         except TypeError:
-            print("\rNo Track is playing", end='')
+            print(Fore.RED + "\rNo Track is playing", end='')
     else:
         print("Can't get token")
 
 if __name__ == "__main__":
+    init(autoreset=True)
     curr_track = ""
     while True:
         try:

@@ -19,13 +19,14 @@ def pretty_print_lyrics(lyric_list):
 
 
 def clean_names(artist_name, song_name):
-    artist_name = re.sub(r"[^a-zA-Z0-9_]", '', artist_name.lower().replace(' ', '').lstrip('the'))
+    artist_name = re.sub(r"[^a-zA-Z0-9_]", '', artist_name.lower().replace('the', '', 1).replace(' ', ''))
     song_name = re.sub(r"[^a-zA-Z0-9_]", '', song_name.lower().replace(' ', ''))
 
     return artist_name, song_name
 
 def extract_lyrics(artist, song):
     artist_name, song_name = clean_names(artist, song)
+    print(artist_name, song_name)
     url = create_url(artist_name, song_name)
     page = get_page(url)
     if page == "Lyrics not found":
