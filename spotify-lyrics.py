@@ -28,13 +28,14 @@ def main(curr_tr):
             progress = round((current_progress/total_duration) * 100, 2)
             if song_name != curr_tr:
                 lyrics = az.extract_lyrics(artist_name, song_name)
-                full_lyrics = '\n'.join(lyrics)
+                # full_lyrics = '\n'.join(lyrics)
                 print("\r{} by {}\n\n".format(song_name, artist_name), end='')
-                print(full_lyrics + '\n')
+                # print(full_lyrics + '\n')
+                az.pretty_print_lyrics(lyrics)
                 print("\rProgress - {}%".ljust(20,' ').format(progress), end='')
                 return song_name
             else:
-                print("\rProgress - {}%".format(progress), end='')
+                print("\rProgress - {}%".ljust(20, ' ').format(progress), end='')
                 return song_name
         except TypeError:
             print("\rNo Track is playing", end='')

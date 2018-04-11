@@ -9,6 +9,15 @@ def clean_lyrics(lyrics):
 
     return lyric_list
 
+def pretty_print_lyrics(lyric_list):
+    for i in range(0, len(lyric_list)):
+        print(lyric_list[i])
+        if (i+1) % 4 == 0 and i > 0:
+            print('\n')
+            # pass
+    print('\n')
+
+
 def clean_names(artist_name, song_name):
     artist_name = re.sub(r"[^a-zA-Z0-9_]", '', artist_name.lower().replace(' ', '').lstrip('the'))
     song_name = re.sub(r"[^a-zA-Z0-9_]", '', song_name.lower().replace(' ', ''))
