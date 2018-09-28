@@ -7,6 +7,8 @@ name = "pypi"
 requests = "*"
 "bs4" = "*"
 spotipy = "*"
+colorama = "*"
+pprint = "*"
 
 [dev-packages]
 
