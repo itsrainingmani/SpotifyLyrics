@@ -51,7 +51,7 @@ if __name__ == "__main__":
     while True:
         try:
             curr_track = main(curr_track)
-            time.sleep(10)
+            # time.sleep(10)
         except KeyboardInterrupt:
             print('\b\b  \n\rShutting Down')
             try:
