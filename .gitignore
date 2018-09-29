@@ -2,3 +2,5 @@ client_secrets.json
 .cache-*
 .vscode/
 __pycache__/
+
+.cache

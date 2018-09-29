@@ -61,6 +61,7 @@ if __name__ == "__main__":
                     curr_track = data["track"]
                     time.sleep(20)
                 else:
+                    # IO Block to wait for user input
                     input("\nPress enter when a song is playing")
 
             except KeyboardInterrupt:
