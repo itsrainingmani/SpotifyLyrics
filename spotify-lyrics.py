@@ -10,6 +10,9 @@ import spotipy.util as util
 from colorama import init, Fore
 
 
+cache = lc.Lyricache()
+
+
 def load_params_and_get_token():
     params = json.load(open("client_secrets.json"))
     auth_token = util.prompt_for_user_token(
@@ -35,7 +38,14 @@ def lyric_loop(curr_tr, sp):
         # Calculate the progress percentage
         progress = round((current_progress / total_duration) * 100, 2)
         if song_name != curr_tr:
+
+            # Use the cache instead of making calls to azlyrics
+            c_artist, c_song = az.clean_names(artist_name, song_name)
+            # if cache.is_in_cache(c_song, c_artist):
+            #     print("IN CACHE")
+            #     print(cache.get_cache_dir_list())
             lyrics = az.extract_lyrics(artist_name, song_name)
+            # cache.add_to_cache(c_song, c_artist, lyrics)
             az.color_print_title([song_name, artist_name])
             az.pretty_print_lyrics(lyrics)
             az.color_print_progress(progress)
@@ -60,7 +70,7 @@ if __name__ == "__main__":
                 data = lyric_loop(curr_track, sp)
                 if data:
                     curr_track = data["track"]
-                    time.sleep(20)
+                    time.sleep(5)
                 else:
                     # IO Block to wait for user input
                     input("\nPress enter when a song is playing")

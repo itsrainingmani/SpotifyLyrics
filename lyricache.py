@@ -30,6 +30,9 @@ class Lyricache:
     def get_cache_dir(self):
         return self.cache_dir
 
+    def get_cache_dir_list(self):
+        return os.listdir(self.cache_dir)
+
     def add_to_cache(self, song, artist, lyrics):
         if self.cache_dir:
             if not self.is_in_cache(song, artist):
@@ -60,10 +63,7 @@ class Lyricache:
         if self.cache_dir:
             lcn = format_names(song, artist)
             cachedir_list = os.listdir(path=self.cache_dir)
-            if lcn not in cachedir_list:
-                return False
-            else:
-                return True
+            return lcn in cachedir_list
         else:
             print("Cache Folder does not exist\n")
             return
@@ -83,14 +83,15 @@ class Lyricache:
 
 
 if __name__ == "__main__":
-    c = Lyricache()
-    print(c.get_cache_dir())
-    # c.clear_cache()
-    cc = c.is_in_cache("origami", "capitalcities")
-    lyr = "The price you pay is your vision\nCollision is highly likely\nI stole your diamonds and gold\nwhat are you going to do"
+    # c = Lyricache()
+    # print(c.get_cache_dir())
+    # # c.clear_cache()
+    # cc = c.is_in_cache("origami", "capitalcities")
+    # lyr = "The price you pay is your vision\nCollision is highly likely\nI stole your diamonds and gold\nwhat are you going to do"
 
-    if not cc:
-        c.add_to_cache("origami", "capitalcities", lyr)
-    c.clear_cache()
-    print(c.read_from_cache("origami", "capitalcities"))
+    # if not cc:
+    #     c.add_to_cache("origami", "capitalcities", lyr)
+    # c.clear_cache()
+    # print(c.read_from_cache("origami", "capitalcities"))
+    pass
 
