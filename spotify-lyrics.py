@@ -10,8 +10,7 @@ from colorama import init, Fore
 
 def load_params_and_get_token():
     params = json.load(open('client_secrets.json'))
-    scope = 'user-read-currently-playing'
-    auth_token = util.prompt_for_user_token(params['username'], scope, 
+    auth_token = util.prompt_for_user_token(params['username'], params['scope'], 
                         client_id=params['client_id'],
                         client_secret=params['client_secret'],
                         redirect_uri=params['redirect_uri']
@@ -23,7 +22,7 @@ def main(curr_tr):
     if token:
         sp = spotipy.Spotify(auth=token)
         try:
-            results = sp.current_user_playing_track()
+            results = sp.currently_playing()
             artist_name = results['item']['album']['artists'][0]['name']
             song_name = results['item']['name']
             current_progress = results['progress_ms']

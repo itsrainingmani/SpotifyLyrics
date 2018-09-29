@@ -9,6 +9,7 @@ requests = "*"
 spotipy = "*"
 colorama = "*"
 pprint = "*"
+rope = "*"
 
 [dev-packages]
 
