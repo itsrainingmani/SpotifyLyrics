@@ -20,6 +20,14 @@ def pretty_print_lyrics(lyric_list):
     print("\n")
 
 
+def color_print_title(data):
+    print(Fore.RED + "\r{} by {}\n\n".ljust(10, " ").format(data[0], data[1]), end="")
+
+
+def color_print_progress(progress):
+    print(Fore.GREEN + "\rProgress - {}%".ljust(20, " ").format(progress), end="")
+
+
 def clean_names(artist_name, song_name):
     artist_name = re.sub(r"^The", "", artist_name)
     artist_name = re.sub(r"[^a-zA-Z0-9_]", "", artist_name.lower().replace(" ", ""))
