@@ -3,27 +3,43 @@ import requests
 import urllib.request, urllib.error
 from bs4 import BeautifulSoup
 
+
 def clean_lyrics(lyrics):
-    lyric_list = list(filter(lambda x: x != '\n', lyrics))
-    lyric_list = list(map(lambda x: x.strip('\r').strip('\n'), lyric_list))[1:]
+    lyric_list = list(filter(lambda x: x != "\n", lyrics))
+    lyric_list = list(map(lambda x: x.strip("\r").strip("\n"), lyric_list))[1:]
 
     return lyric_list
+
 
 def pretty_print_lyrics(lyric_list):
     for i in range(0, len(lyric_list)):
         print(lyric_list[i])
-        if (i+1) % 4 == 0 and i > 0:
-            print('\n')
+        if (i + 1) % 4 == 0 and i > 0:
+            print("\n")
             # pass
-    print('\n')
+    print("\n")
 
 
 def clean_names(artist_name, song_name):
-    artist_name = re.sub(r"^The", '', artist_name)
-    artist_name = re.sub(r"[^a-zA-Z0-9_]", '', artist_name.lower().replace(' ', ''))
-    song_name = re.sub(r"[^a-zA-Z0-9_]", '', song_name.lower().replace(' ', ''))
+    artist_name = re.sub(r"^The", "", artist_name)
+    artist_name = re.sub(r"[^a-zA-Z0-9_]", "", artist_name.lower().replace(" ", ""))
+    song_name = re.sub(r"[^a-zA-Z0-9_]", "", song_name.lower().replace(" ", ""))
 
     return artist_name, song_name
+
+
+def create_url(artist_name, song_name):
+    return "https://www.azlyrics.com/lyrics/{}/{}.html".format(artist_name, song_name)
+
+
+def get_page(url):
+    try:
+        page = urllib.request.urlopen(url)
+        return page.read()
+    except urllib.error.HTTPError as e:
+        if e.code == 404:
+            return "Lyrics not found"
+
 
 def extract_lyrics(artist, song):
     artist_name, song_name = clean_names(artist, song)
@@ -32,7 +48,7 @@ def extract_lyrics(artist, song):
     page = get_page(url)
     if page == "Lyrics not found":
         return [page]
-    soup = BeautifulSoup(page, 'html.parser')
+    soup = BeautifulSoup(page, "html.parser")
     mydivs = soup.find("div", {"class": "ringtone"})
     lyrics = mydivs.find_next_sibling("div")
     lyric_list = []
@@ -46,18 +62,6 @@ def extract_lyrics(artist, song):
     lyric_list = clean_lyrics(lyric_list)
     return lyric_list
 
-def create_url(artist_name, song_name):
-    return "https://www.azlyrics.com/lyrics/{}/{}.html".format(artist_name, song_name)
-
-def get_page(url):
-    try:
-        page = urllib.request.urlopen(url)
-        return page.read()
-    except urllib.error.HTTPError as e:
-        if e.code == 404:
-            # print("Music not found")
-            return "Lyrics not found"
-            # sys.exit(1)
 
 if __name__ == "__main__":
     # a_name, s_name = clean_names("Metallica", "...And Justice For All")
