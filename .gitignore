@@ -3,4 +3,5 @@ client_secrets.json
 .vscode/
 __pycache__/
 
-.cache
+.cache/
+lyrics_test/

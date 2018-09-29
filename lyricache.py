@@ -7,20 +7,21 @@ class Lyricache:
     def __init__(self):
         # Get the files in the current directory
         curdir_list = os.listdir(path=".")
+        cache_name = ".cache"
 
-        if ".cache" not in curdir_list:
+        if cache_name not in curdir_list:
             print("Cache Folder does not exist. Creating one...")
 
             # Try to create the cache dir
             try:
-                os.mkdir(path=os.getcwd() + "/.cache")
-                self.cache_dir = os.getcwd() + "/.cache"
+                os.mkdir(path=os.path.join(os.getcwd(), cache_name))
+                self.cache_dir = os.path.join(os.getcwd(), cache_name)
                 print("Cache Folder has been created")
             except FileExistsError:
                 print("Unable to create Cache Folder")
         else:
             print("Cache Folder already exists")
-            self.cache_dir = os.getcwd() + "/.cache"
+            self.cache_dir = os.path.join(os.getcwd(), cache_name)
 
     def getCacheDir(self):
         return self.cache_dir
@@ -29,7 +30,7 @@ class Lyricache:
         if self.cache_dir:
             cachedir_list = os.listdir(path=self.cache_dir)
             for f in cachedir_list:
-                f_path = self.cache_dir + "/" + f
+                f_path = os.path.join(self.cache_dir, f)
                 try:
                     os.remove(f_path)
                 except:
@@ -42,3 +43,4 @@ class Lyricache:
 if __name__ == "__main__":
     c = Lyricache()
     print(c.getCacheDir())
+    c.clearCache()
