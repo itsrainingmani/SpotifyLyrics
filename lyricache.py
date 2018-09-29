@@ -31,24 +31,42 @@ class Lyricache:
         return self.cache_dir
 
     def add_to_cache(self, song, artist, lyrics):
-        lyr_cache_name = format_names(song, artist)
-        pass
-
-    def check_cache(self, song, artist):
-        lyr_cache_name = format_names(song, artist)
-        print(lyr_cache_name)
         if self.cache_dir:
+            if not self.is_in_cache(song, artist):
+                lcn = format_names(song, artist)
+                with open(os.path.join(self.cache_dir, lcn), "w") as cache_file:
+                    cache_file.write(lyrics)
+            else:
+                return
+        else:
+            print("Cache Folder does not exist\n")
+            return
+
+    def read_from_cache(self, song, artist):
+        if self.cache_dir:
+            if self.is_in_cache(song, artist):
+                lcn = format_names(song, artist)
+                lyrics = ""
+                with open(os.path.join(self.cache_dir, lcn), "r") as cache_file:
+                    lyrics = cache_file.read()
+                return lyrics
+            else:
+                return
+        else:
+            print("Cache Folder does not exist\n")
+            return
+
+    def is_in_cache(self, song, artist):
+        if self.cache_dir:
+            lcn = format_names(song, artist)
             cachedir_list = os.listdir(path=self.cache_dir)
-            if lyr_cache_name not in cachedir_list:
+            if lcn not in cachedir_list:
                 return False
             else:
                 return True
         else:
-            print("Cache Folder does not exist. Exiting...")
-            try:
-                sys.exit(0)
-            except SystemExit:
-                os._exit(0)
+            print("Cache Folder does not exist\n")
+            return
 
     def clear_cache(self):
         if self.cache_dir:
@@ -58,14 +76,21 @@ class Lyricache:
                 try:
                     os.remove(f_path)
                 except:
-                    print("Cache File - {} could not be removed".format(f))
-            print("Cache Folder cleared")
+                    print("Cache File - {} could not be removed\n".format(f))
+            print("Cache Folder cleared\n")
         else:
-            print("Cache Folder does not exist")
+            print("Cache Folder does not exist\n")
 
 
 if __name__ == "__main__":
     c = Lyricache()
     print(c.get_cache_dir())
     # c.clear_cache()
-    print(c.check_cache("blackened", "metallica"))
+    cc = c.is_in_cache("origami", "capitalcities")
+    lyr = "The price you pay is your vision\nCollision is highly likely\nI stole your diamonds and gold\nwhat are you going to do"
+
+    if not cc:
+        c.add_to_cache("origami", "capitalcities", lyr)
+    c.clear_cache()
+    print(c.read_from_cache("origami", "capitalcities"))
+
