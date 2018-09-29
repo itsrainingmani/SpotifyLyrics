@@ -3,6 +3,10 @@ import json
 import time
 
 
+def format_names(song, artist):
+    return "{}_{}_lyr.txt".format(artist, song)
+
+
 class Lyricache:
     def __init__(self):
         # Get the files in the current directory
@@ -23,10 +27,30 @@ class Lyricache:
             print("Cache Folder already exists")
             self.cache_dir = os.path.join(os.getcwd(), cache_name)
 
-    def getCacheDir(self):
+    def get_cache_dir(self):
         return self.cache_dir
 
-    def clearCache(self):
+    def add_to_cache(self, song, artist, lyrics):
+        lyr_cache_name = format_names(song, artist)
+        pass
+
+    def check_cache(self, song, artist):
+        lyr_cache_name = format_names(song, artist)
+        print(lyr_cache_name)
+        if self.cache_dir:
+            cachedir_list = os.listdir(path=self.cache_dir)
+            if lyr_cache_name not in cachedir_list:
+                return False
+            else:
+                return True
+        else:
+            print("Cache Folder does not exist. Exiting...")
+            try:
+                sys.exit(0)
+            except SystemExit:
+                os._exit(0)
+
+    def clear_cache(self):
         if self.cache_dir:
             cachedir_list = os.listdir(path=self.cache_dir)
             for f in cachedir_list:
@@ -42,5 +66,6 @@ class Lyricache:
 
 if __name__ == "__main__":
     c = Lyricache()
-    print(c.getCacheDir())
-    c.clearCache()
+    print(c.get_cache_dir())
+    # c.clear_cache()
+    print(c.check_cache("blackened", "metallica"))
