@@ -2,6 +2,7 @@ import sys, re
 import requests
 import urllib.request, urllib.error
 from bs4 import BeautifulSoup
+from colorama import init, Fore
 
 
 def clean_lyrics(lyrics):
