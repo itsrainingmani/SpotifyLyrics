@@ -34,18 +34,6 @@ class Lyricache:
     def get_cache_dir_list(self):
         return os.listdir(self.cache_dir)
 
-    # def add_to_cache(self, song, artist, lyrics):
-    #     if self.cache_dir:
-    #         if not self.is_in_cache(song, artist):
-    #             lcn = format_names(song, artist)
-    #             with open(os.path.join(self.cache_dir, lcn), "w") as cache_file:
-    #                 cache_file.write(lyrics)
-    #         else:
-    #             return
-    #     else:
-    #         print("Cache Folder does not exist\n")
-    #         return
-
     def add_to_cache(self, song, artist, lyrics):
         if self.cache_dir:
             if not self.is_in_cache(song, artist) and len(lyrics) > 1:
