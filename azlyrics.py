@@ -29,6 +29,10 @@ def color_print_progress(progress):
     print(Fore.GREEN + "\rProgress - {}%".ljust(20, " ").format(progress), end="")
 
 
+def color_print_error():
+    print(Fore.RED + "\rNo Track is playing", end="")
+
+
 def clean_names(artist_name, song_name):
     artist_name = re.sub(r"^The", "", artist_name)
     artist_name = re.sub(r"[^a-zA-Z0-9_]", "", artist_name.lower().replace(" ", ""))

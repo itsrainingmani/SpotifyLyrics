@@ -1,6 +1,7 @@
 import sys, os
 import json
 import time
+import pickle
 
 
 def format_names(song, artist):
@@ -33,12 +34,24 @@ class Lyricache:
     def get_cache_dir_list(self):
         return os.listdir(self.cache_dir)
 
+    # def add_to_cache(self, song, artist, lyrics):
+    #     if self.cache_dir:
+    #         if not self.is_in_cache(song, artist):
+    #             lcn = format_names(song, artist)
+    #             with open(os.path.join(self.cache_dir, lcn), "w") as cache_file:
+    #                 cache_file.write(lyrics)
+    #         else:
+    #             return
+    #     else:
+    #         print("Cache Folder does not exist\n")
+    #         return
+
     def add_to_cache(self, song, artist, lyrics):
         if self.cache_dir:
-            if not self.is_in_cache(song, artist):
+            if not self.is_in_cache(song, artist) and len(lyrics) > 1:
                 lcn = format_names(song, artist)
-                with open(os.path.join(self.cache_dir, lcn), "w") as cache_file:
-                    cache_file.write(lyrics)
+                with open(os.path.join(self.cache_dir, lcn), "wb") as cache_file:
+                    pickle.dump(lyrics, cache_file)
             else:
                 return
         else:
@@ -49,9 +62,9 @@ class Lyricache:
         if self.cache_dir:
             if self.is_in_cache(song, artist):
                 lcn = format_names(song, artist)
-                lyrics = ""
-                with open(os.path.join(self.cache_dir, lcn), "r") as cache_file:
-                    lyrics = cache_file.read()
+                lyrics = []
+                with open(os.path.join(self.cache_dir, lcn), "rb") as cache_file:
+                    lyrics = pickle.load(cache_file)
                 return lyrics
             else:
                 return
@@ -82,16 +95,21 @@ class Lyricache:
             print("Cache Folder does not exist\n")
 
 
-if __name__ == "__main__":
-    # c = Lyricache()
-    # print(c.get_cache_dir())
-    # # c.clear_cache()
-    # cc = c.is_in_cache("origami", "capitalcities")
-    # lyr = "The price you pay is your vision\nCollision is highly likely\nI stole your diamonds and gold\nwhat are you going to do"
+# if __name__ == "__main__":
+#     # c = Lyricache()
+#     # # print(c.get_cache_dir())
+#     # # c.clear_cache()
+#     # cc = c.is_in_cache("origami", "capitalcities")
+#     # lyr = "The price you pay is your vision\nCollision is highly likely\nI stole your diamonds and gold\nwhat are you going to do"
 
-    # if not cc:
-    #     c.add_to_cache("origami", "capitalcities", lyr)
-    # c.clear_cache()
-    # print(c.read_from_cache("origami", "capitalcities"))
-    pass
+#     # if not cc:
+#     #     print("Not in cache")
+#     #     print(c.get_cache_dir_list())
+#     #     c.add_to_cache("origami", "capitalcities", lyr)
+#     # else:
+#     #     print("In cache")
+#     #     print(c.get_cache_dir_list())
+#     # # c.clear_cache()
+#     # print(c.read_from_cache("origami", "capitalcities"))
+#     pass
 
