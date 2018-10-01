@@ -13,7 +13,8 @@ cache = lc.Lyricache()
 
 
 def load_params_and_get_token():
-    params = json.load(open("client_secrets.json"))
+    with open("client_secrets.json", 'r') as client_secret_file:
+        params = json.load(client_secret_file)
     auth_token = util.prompt_for_user_token(
         params["username"],
         params["scope"],
