@@ -1,4 +1,5 @@
-import sys, re
+import re
+import sys
 import requests
 import urllib.request, urllib.error
 from bs4 import BeautifulSoup
