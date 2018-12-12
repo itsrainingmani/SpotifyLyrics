@@ -31,6 +31,8 @@ def lyric_loop(curr_tr, sp):
     except TypeError:
         az.color_print_error()
         return
+    if results == None:
+        return
 
     artist_name = results["item"]["album"]["artists"][0]["name"]
     song_name = results["item"]["name"]
