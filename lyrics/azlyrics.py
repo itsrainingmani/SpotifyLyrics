@@ -24,8 +24,7 @@ def pretty_print_lyrics(lyric_list):
 
 def color_print_title(data):
     print(Fore.RED + "\r{} by {}\n\n".ljust(10, " ").format(
-        data[0], 
-        data[1]),  end="")
+        data[0], data[1]),  end="")
 
 
 def color_print_progress(progress):

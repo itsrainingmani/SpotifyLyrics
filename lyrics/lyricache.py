@@ -74,7 +74,7 @@ class Lyricache:
                 f_path = os.path.join(self.cache_dir, f)
                 try:
                     os.remove(f_path)
-                except:
+                except OSError:
                     print("Cache File - {} could not be removed\n".format(f))
             print("Cache Folder cleared\n")
         else:
