@@ -1,7 +1,5 @@
 import re
 import requests
-import urllib.request
-import urllib.error
 from bs4 import BeautifulSoup
 from colorama import Fore
 
@@ -48,12 +46,11 @@ def create_url(artist_name, song_name):
 
 
 def get_page(url):
-    try:
-        page = urllib.request.urlopen(url)
-        return page.read()
-    except urllib.error.HTTPError as e:
-        if e.code == 404:
-            return "Lyrics not found"
+    r = requests.get(url)
+    if r.status_code == 200:
+        return r.text
+    elif r.status_code == 404:
+        return "Lyrics not found"
 
 
 def extract_lyrics(artist, song):
