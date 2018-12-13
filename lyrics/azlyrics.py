@@ -1,9 +1,9 @@
 import re
-import sys
 import requests
-import urllib.request, urllib.error
+import urllib.request
+import urllib.error
 from bs4 import BeautifulSoup
-from colorama import init, Fore
+from colorama import Fore
 
 
 def clean_lyrics(lyrics):
@@ -23,7 +23,9 @@ def pretty_print_lyrics(lyric_list):
 
 
 def color_print_title(data):
-    print(Fore.RED + "\r{} by {}\n\n".ljust(10, " ").format(data[0], data[1]), end="")
+    print(Fore.RED + "\r{} by {}\n\n".ljust(10, " ").format(
+        data[0], 
+        data[1]),  end="")
 
 
 def color_print_progress(progress):

@@ -1,7 +1,4 @@
 import os
-import sys
-import json
-import time
 import pickle
 
 
@@ -101,4 +98,3 @@ class Lyricache:
 #     # # c.clear_cache()
 #     # print(c.read_from_cache("origami", "capitalcities"))
 #     pass
-

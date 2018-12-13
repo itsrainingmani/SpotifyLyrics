@@ -23,4 +23,4 @@ run:
 	pipenv run python lyrics/app.py
 
 lint:
-	pipenv run flake8 pal/*
+	pipenv run flake8
