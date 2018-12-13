@@ -11,6 +11,7 @@ colorama = "*"
 pprint = "*"
 rope = "*"
 pytest = "*"
+invoke = "*"
 
 [dev-packages]
 black = "==18.9b0"

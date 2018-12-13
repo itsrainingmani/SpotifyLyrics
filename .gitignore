@@ -2,6 +2,7 @@ client_secrets.json
 .cache-*
 .vscode/
 __pycache__/
+.pytest_cache
 
 .cache/
 test_lyrics/
