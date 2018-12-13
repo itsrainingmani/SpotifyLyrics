@@ -79,22 +79,3 @@ class Lyricache:
             print("Cache Folder cleared\n")
         else:
             print("Cache Folder does not exist\n")
-
-
-# if __name__ == "__main__":
-#     # c = Lyricache()
-#     # # print(c.get_cache_dir())
-#     # # c.clear_cache()
-#     # cc = c.is_in_cache("origami", "capitalcities")
-#     # lyr = "The price you pay is your vision\nCollision is highly likely\nI stole your diamonds and gold\nwhat are you going to do"
-
-#     # if not cc:
-#     #     print("Not in cache")
-#     #     print(c.get_cache_dir_list())
-#     #     c.add_to_cache("origami", "capitalcities", lyr)
-#     # else:
-#     #     print("In cache")
-#     #     print(c.get_cache_dir_list())
-#     # # c.clear_cache()
-#     # print(c.read_from_cache("origami", "capitalcities"))
-#     pass

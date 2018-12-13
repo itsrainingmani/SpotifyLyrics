@@ -73,14 +73,3 @@ def extract_lyrics(artist, song):
 
     lyric_list = clean_lyrics(lyric_list)
     return lyric_list
-
-
-if __name__ == "__main__":
-    # a_name, s_name = clean_names("Metallica", "...And Justice For All")
-    # # print(a_name, s_name)
-    # url = create_url(a_name, s_name)
-    # pg = get_page(url)
-    # lyr = extract_lyrics(pg)
-    # clean_lyr = clean_lyrics(lyr)
-    # print(clean_lyr)
-    pass
