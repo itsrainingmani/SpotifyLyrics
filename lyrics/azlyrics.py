@@ -1,9 +1,7 @@
 import re
-import sys
 import requests
-import urllib.request, urllib.error
 from bs4 import BeautifulSoup
-from colorama import init, Fore
+from colorama import Fore
 
 
 def clean_lyrics(lyrics):
@@ -23,7 +21,8 @@ def pretty_print_lyrics(lyric_list):
 
 
 def color_print_title(data):
-    print(Fore.RED + "\r{} by {}\n\n".ljust(10, " ").format(data[0], data[1]), end="")
+    print(Fore.RED + "\r{} by {}\n\n".ljust(10, " ").format(
+        data[0], data[1]),  end="")
 
 
 def color_print_progress(progress):
@@ -47,12 +46,11 @@ def create_url(artist_name, song_name):
 
 
 def get_page(url):
-    try:
-        page = urllib.request.urlopen(url)
-        return page.read()
-    except urllib.error.HTTPError as e:
-        if e.code == 404:
-            return "Lyrics not found"
+    r = requests.get(url)
+    if r.status_code == 200:
+        return r.text
+    elif r.status_code == 404:
+        return "Lyrics not found"
 
 
 def extract_lyrics(artist, song):
@@ -75,14 +73,3 @@ def extract_lyrics(artist, song):
 
     lyric_list = clean_lyrics(lyric_list)
     return lyric_list
-
-
-if __name__ == "__main__":
-    # a_name, s_name = clean_names("Metallica", "...And Justice For All")
-    # # print(a_name, s_name)
-    # url = create_url(a_name, s_name)
-    # pg = get_page(url)
-    # lyr = extract_lyrics(pg)
-    # clean_lyr = clean_lyrics(lyr)
-    # print(clean_lyr)
-    pass

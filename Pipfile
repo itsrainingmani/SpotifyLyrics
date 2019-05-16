@@ -10,10 +10,12 @@ spotipy = "*"
 colorama = "*"
 pprint = "*"
 rope = "*"
-pytest = "*"
+"flake8" = "*"
+urllib3 = ">=1.24.2"
 
 [dev-packages]
 black = "==18.9b0"
+pytest = "*"
 
 [requires]
 python_version = "3.6"

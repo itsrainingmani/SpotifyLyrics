@@ -2,13 +2,12 @@ import os
 import sys
 import json
 import time
-import pprint
 import azlyrics as az
 import lyricache as lc
 import spotipy
 import spotipy.util as util
 
-from colorama import init, Fore
+from colorama import init
 
 cache = lc.Lyricache()
 
@@ -32,7 +31,7 @@ def lyric_loop(curr_tr, sp):
     except TypeError:
         az.color_print_error()
         return
-    if results == None:
+    if results is None:
         return
 
     artist_name = results["item"]["album"]["artists"][0]["name"]
