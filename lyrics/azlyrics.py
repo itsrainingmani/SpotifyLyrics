@@ -3,14 +3,14 @@ import requests
 from bs4 import BeautifulSoup
 from colorama import Fore
 
-
+# Remove newline and line feed characters from the lyrics
 def clean_lyrics(lyrics):
     lyric_list = list(filter(lambda x: x != "\n", lyrics))
     lyric_list = list(map(lambda x: x.strip("\r").strip("\n"), lyric_list))[1:]
 
     return lyric_list
 
-
+# Print out the lyrics in blocks of 4 lines
 def pretty_print_lyrics(lyric_list):
     for i in range(0, len(lyric_list)):
         print(lyric_list[i])
@@ -32,7 +32,8 @@ def color_print_progress(progress):
 def color_print_error():
     print(Fore.RED + "\rNo Track is playing", end="")
 
-
+# Remove leading The from the artist name
+# Remove all non alphanumeric characters from artist, song names
 def clean_names(artist_name, song_name):
     artist_name = re.sub(r"^The", "", artist_name)
     artist_name = re.sub(r"[^a-zA-Z0-9_]", "", artist_name.lower().replace(" ", ""))
