@@ -9,13 +9,13 @@ requests = ">=2.20.0"
 spotipy = "*"
 colorama = "*"
 pprint = "*"
-rope = "*"
-"flake8" = "*"
 urllib3 = ">=1.24.2"
 
 [dev-packages]
 black = "==18.9b0"
 pytest = "*"
+"flake8" = "*"
+rope = "*"
 
 [requires]
 python_version = "3.6"
